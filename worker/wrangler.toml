@@ -1,0 +1,19 @@
+name = "aldaba-demo"
+main = "src/index.ts"
+compatibility_date = "2025-09-06"
+compatibility_flags = ["nodejs_compat"]
+
+assets = { directory = "./public", binding = "ASSETS", not_found_handling = "single-page-application", run_worker_first = ["/api/*"] }
+
+# Sin custom_domain: la demo vive en aldaba-demo.<subdominio>.workers.dev
+workers_dev = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "aldaba-demo-db"
+database_id = "ee3c6629-cbfc-4048-a41c-cfdca0b0141b"
+migrations_dir = "migrations"
+
+# Sin R2 a propósito: los adjuntos se guardan en la tabla `archivos` de D1,
+# que es el camino de respaldo que media.ts ya implementa y que alcanza de
+# sobra para una demostración (500 KB por archivo).

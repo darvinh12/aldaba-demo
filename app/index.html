@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#00365F" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <!-- Tipografías auto-alojadas (app/public/fonts/ + @font-face en tokens.css): sin dependencia de Google Fonts,
+       la app nativa pinta bien sin red. La meta-CSP se inyecta en build por el plugin cspEmpaquetada (vite.config.ts). -->
+  <title>Aldaba — Tu condominio en orden</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+# Plantilla. Copia a `worker/.dev.vars` (gitignored) y rellena. Ver docs/CONFIGURACION.md.
+# Genera uno: node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+SESSION_SECRET=cambia-esto-por-una-cadena-larga-y-aleatoria
+# Opcional: envío real de correo masivo (sin esto queda "preparado"; WhatsApp funciona igual).
+# RESEND_API_KEY=re_xxxxxxxx

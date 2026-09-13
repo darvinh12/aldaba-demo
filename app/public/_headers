@@ -1,0 +1,21 @@
+# Cabeceras de seguridad para los assets de la SPA (Cloudflare Workers Assets).
+# Seguridad desde el diseño: CSP estricta (scripts solo self, sin eval), HSTS con preload,
+# anti-clickjacking, nosniff, y Permissions-Policy que solo habilita cámara (escaneo QR de portería F3).
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; connect-src 'self'; media-src 'self' blob:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(self), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
+
+# El .ipa lo descarga un firmador que corre EN EL IPHONE (Scarlet, ESign), no el navegador.
+# Esas apps piden el archivo desde otro origen, así que aquí se relaja el
+# Cross-Origin-Resource-Policy: same-origin que aplica el bloque /* de arriba, que si no lo
+# rechazaría. El tipo explícito evita que algún intermediario lo trate como texto.
+/ios/*
+  Content-Type: application/octet-stream
+  Cross-Origin-Resource-Policy: cross-origin
+  Content-Disposition: attachment; filename="Aldaba.ipa"

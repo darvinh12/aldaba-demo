@@ -1,0 +1,8 @@
+node_modules/
+worker/public/
+.wrangler/
+dist/
+.dev.vars
+*.local.md
+.superpowers/
+docs/planes/

@@ -1,0 +1,10 @@
+{
+  "name": "Aldaba — Tu condominio en orden",
+  "short_name": "Aldaba",
+  "description": "Gestión de condominios: cuotas, comunicados, accesos y más.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#021627",
+  "theme_color": "#00365F",
+  "lang": "es"
+}
