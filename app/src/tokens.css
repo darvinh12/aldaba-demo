@@ -517,3 +517,35 @@ table.tbl tr:hover td{background:var(--surface-2)}
   .topbar,.tabbar{background:var(--surface);backdrop-filter:none}
   .lab .card{background:#0f151c;backdrop-filter:none}
 }
+
+/* ── Plano gráfico de la torre (components/PlanoTorre.tsx) ──────────────────
+   Cuadrito por apartamento, agrupados por piso. Verde para habitados, gris
+   para vacíos. Los verdes se definen aquí y no en el componente para que el
+   tema oscuro pueda ajustarlos sin tocar el JSX. */
+.plano-wrap{margin:14px 0 18px}
+.plano-cab{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.plano-leyenda{display:flex;align-items:center;font-size:.76rem;color:var(--sub);font-family:var(--font-mono);letter-spacing:.03em}
+.plano-punto{width:10px;height:10px;border-radius:3px;display:inline-block;margin-right:6px}
+.plano-punto.viva{background:#2f9e68}
+.plano-punto.vacia{background:var(--muted);border:1px solid var(--border)}
+
+.plano-torre{display:inline-block;min-width:min(100%,240px);padding:10px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface-2)}
+/* Techo y base: dos trazos que insinúan el edificio sin dibujarlo entero. */
+.plano-techo{height:7px;border-radius:4px 4px 0 0;background:var(--border);margin-bottom:8px}
+.plano-base{height:4px;border-radius:0 0 4px 4px;background:var(--border);margin-top:8px}
+
+.plano-piso{display:flex;align-items:center;gap:10px;padding:3px 0}
+.plano-num{min-width:22px;text-align:right;font-family:var(--font-mono);font-size:.72rem;color:var(--faint);flex-shrink:0}
+.plano-aptos{display:flex;flex-wrap:wrap;gap:5px}
+
+.plano-apto{width:34px;height:26px;border-radius:5px;display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-mono);font-size:.68rem;font-weight:600;letter-spacing:.02em;cursor:default;
+  transition:transform .12s ease}
+.plano-apto:hover{transform:translateY(-2px)}
+.plano-apto.viva{background:#2f9e68;color:#fff;border:1px solid #27875a}
+.plano-apto.vacia{background:var(--muted);color:var(--faint);border:1px solid var(--border)}
+
+:root[data-theme="dark"] .plano-apto.viva{background:#34a873;border-color:#3fc389;color:#04140c}
+:root[data-theme="dark"] .plano-punto.viva{background:#34a873}
+
+@media(prefers-reduced-motion:reduce){.plano-apto{transition:none}.plano-apto:hover{transform:none}}

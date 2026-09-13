@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { api } from '../api'
 import { setToken } from '../plataforma'
 import { SubmitBtn } from '../ui'
-import { Aurora, CornerMarks } from '../components/effects'
+import { CornerMarks } from '../components/effects'
 import { LogoMark } from '../components/brand'
 
 export function Login({ onListo }: { onListo: () => void }) {
@@ -20,7 +20,6 @@ export function Login({ onListo }: { onListo: () => void }) {
   }
   return (
     <div className="centrado lab">
-      <Aurora />
       <div className="auth-wrap">
       <div className="card" style={{ padding: 14, marginBottom: 16, textAlign: 'center' }}>
         <div className="mono-label" style={{ marginBottom: 6 }}>Demostración pública</div>
@@ -41,8 +40,13 @@ export function Login({ onListo }: { onListo: () => void }) {
             <div className="muted-txt xs">Tu condominio en orden</div>
           </div>
         </div>
-        <div className="field"><label>Correo</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="username" placeholder="tu@correo.com" /></div>
+        {/* type="text", NO "email": el worker acepta un identificador sin arroba y lo
+            resuelve contra el dominio de las cuentas de demostración (normalizarIdentificador
+            en routes/auth.ts). Con type="email" el navegador valida en el cliente y bloquea
+            "Demo" antes de enviar el formulario, así que la cuenta publicada no entraba. */}
+        <div className="field"><label>Usuario o correo</label>
+          <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} required
+            autoComplete="username" autoCapitalize="none" spellCheck={false} placeholder="Demo" /></div>
         <div className="field"><label>Clave</label>
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required autoComplete="current-password" placeholder="••••••••" /></div>
         {error && <p role="alert" style={{ color: '#fca5a5', fontSize: '.82rem', margin: '2px 0 12px' }}>⚠ {error}</p>}

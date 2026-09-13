@@ -3,6 +3,7 @@ import { api, apiVivo, conError, fechaUtc } from '../api'
 import { PUBLIC_ORIGIN, abrirExterno, copiar as copiarTexto } from '../plataforma'
 import { useToast, Empty, Sheet, SubmitBtn, useAsync } from '../ui'
 import { Icon } from './icons'
+import { PlanoTorre } from './PlanoTorre'
 
 export function Estructura() {
   const [est, setEst] = useState<any>(null)
@@ -111,6 +112,7 @@ export function Estructura() {
               </div>
             )}
           </div>
+          <PlanoTorre nombre={t.nombre} unidades={t.unidades} />
           {t.unidades.map((u: any) => (
             <div className="list-item" key={u.id}>
               <div className="li-ico"><Icon name="door" /></div>
