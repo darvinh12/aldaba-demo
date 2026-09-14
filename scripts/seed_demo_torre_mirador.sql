@@ -1,7 +1,15 @@
 -- Torre Mirador: 8 pisos x 5 apartamentos, para que el plano grafico de la
--- estructura se vea con varios cuadritos por piso. Ocupacion variada a proposito:
--- pisos bajos casi llenos, el ultimo casi vacio.
--- Idempotente: INSERT OR IGNORE con ids fijos.
+-- estructura se vea con varios cuadritos por piso.
+--
+-- La ocupacion es ALEATORIA, no un patron. Se genero barajando las 40 celdas con
+-- un PRNG de semilla fija (20260913) y tomando 27, asi los apartamentos vacios
+-- quedan repartidos como en un edificio real y el archivo sigue siendo reproducible.
+--
+-- Reaplicable: borra la ocupacion anterior de esta torre antes de sembrar la nueva.
+-- Los DELETE van acotados por prefijo de id, solo tocan filas de esta torre.
+
+DELETE FROM membresias WHERE id LIKE 'm-mir-%';
+DELETE FROM usuarios WHERE id LIKE 'u-res-mir-%';
 
 INSERT OR IGNORE INTO torres(id,condominio_id,nombre) VALUES
   ('demo-torre-mirador','demo-condo-norte','Torre Mirador');
@@ -49,7 +57,7 @@ INSERT OR IGNORE INTO unidades(id,condominio_id,torre_id,nombre,alicuota) VALUES
   ('u-mir-8E','demo-condo-norte','demo-torre-mirador','8-E',0.0158);
 
 -- Residentes: uno por apartamento habitado. Misma clave que la cuenta publica.
-INSERT OR IGNORE INTO usuarios(id,email,nombre,hash,debe_cambiar_clave) VALUES
+INSERT INTO usuarios(id,email,nombre,hash,debe_cambiar_clave) VALUES
   ('u-res-mir-0','residente0@mirador.demo','Carmen Belisario','100000$s1F8xKhchlI3o4CliymAVg==$GEx0u33jgHWQb+RVSuWeJZiNKNHcTkz7R+ZG1F2g0xM=',0),
   ('u-res-mir-1','residente1@mirador.demo','Rafael Istúriz','100000$s1F8xKhchlI3o4CliymAVg==$GEx0u33jgHWQb+RVSuWeJZiNKNHcTkz7R+ZG1F2g0xM=',0),
   ('u-res-mir-2','residente2@mirador.demo','Yolanda Cedeño','100000$s1F8xKhchlI3o4CliymAVg==$GEx0u33jgHWQb+RVSuWeJZiNKNHcTkz7R+ZG1F2g0xM=',0),
@@ -75,34 +83,34 @@ INSERT OR IGNORE INTO usuarios(id,email,nombre,hash,debe_cambiar_clave) VALUES
   ('u-res-mir-22','residente22@mirador.demo','Filomena Brito','100000$s1F8xKhchlI3o4CliymAVg==$GEx0u33jgHWQb+RVSuWeJZiNKNHcTkz7R+ZG1F2g0xM=',0),
   ('u-res-mir-23','residente23@mirador.demo','Octavio Lameda','100000$s1F8xKhchlI3o4CliymAVg==$GEx0u33jgHWQb+RVSuWeJZiNKNHcTkz7R+ZG1F2g0xM=',0),
   ('u-res-mir-24','residente24@mirador.demo','Perla Machado','100000$s1F8xKhchlI3o4CliymAVg==$GEx0u33jgHWQb+RVSuWeJZiNKNHcTkz7R+ZG1F2g0xM=',0),
-  ('u-res-mir-25','residente25@mirador.demo','Carmen Belisario','100000$s1F8xKhchlI3o4CliymAVg==$GEx0u33jgHWQb+RVSuWeJZiNKNHcTkz7R+ZG1F2g0xM=',0),
-  ('u-res-mir-26','residente26@mirador.demo','Rafael Istúriz','100000$s1F8xKhchlI3o4CliymAVg==$GEx0u33jgHWQb+RVSuWeJZiNKNHcTkz7R+ZG1F2g0xM=',0);
+  ('u-res-mir-25','residente25@mirador.demo','Anselmo Terán','100000$s1F8xKhchlI3o4CliymAVg==$GEx0u33jgHWQb+RVSuWeJZiNKNHcTkz7R+ZG1F2g0xM=',0),
+  ('u-res-mir-26','residente26@mirador.demo','Lucrecia Bastidas','100000$s1F8xKhchlI3o4CliymAVg==$GEx0u33jgHWQb+RVSuWeJZiNKNHcTkz7R+ZG1F2g0xM=',0);
 
-INSERT OR IGNORE INTO membresias(id,usuario_id,condominio_id,unidad_id,rol) VALUES
+INSERT INTO membresias(id,usuario_id,condominio_id,unidad_id,rol) VALUES
   ('m-mir-0','u-res-mir-0','demo-condo-norte','u-mir-1A','residente'),
   ('m-mir-1','u-res-mir-1','demo-condo-norte','u-mir-1B','residente'),
   ('m-mir-2','u-res-mir-2','demo-condo-norte','u-mir-1C','residente'),
   ('m-mir-3','u-res-mir-3','demo-condo-norte','u-mir-1D','residente'),
   ('m-mir-4','u-res-mir-4','demo-condo-norte','u-mir-1E','residente'),
-  ('m-mir-5','u-res-mir-5','demo-condo-norte','u-mir-2A','residente'),
-  ('m-mir-6','u-res-mir-6','demo-condo-norte','u-mir-2B','residente'),
-  ('m-mir-7','u-res-mir-7','demo-condo-norte','u-mir-2C','residente'),
-  ('m-mir-8','u-res-mir-8','demo-condo-norte','u-mir-2D','residente'),
-  ('m-mir-9','u-res-mir-9','demo-condo-norte','u-mir-2E','residente'),
-  ('m-mir-10','u-res-mir-10','demo-condo-norte','u-mir-3A','residente'),
-  ('m-mir-11','u-res-mir-11','demo-condo-norte','u-mir-3B','residente'),
-  ('m-mir-12','u-res-mir-12','demo-condo-norte','u-mir-3C','residente'),
-  ('m-mir-13','u-res-mir-13','demo-condo-norte','u-mir-3D','residente'),
-  ('m-mir-14','u-res-mir-14','demo-condo-norte','u-mir-4A','residente'),
-  ('m-mir-15','u-res-mir-15','demo-condo-norte','u-mir-4B','residente'),
-  ('m-mir-16','u-res-mir-16','demo-condo-norte','u-mir-4C','residente'),
-  ('m-mir-17','u-res-mir-17','demo-condo-norte','u-mir-4D','residente'),
-  ('m-mir-18','u-res-mir-18','demo-condo-norte','u-mir-5A','residente'),
-  ('m-mir-19','u-res-mir-19','demo-condo-norte','u-mir-5B','residente'),
-  ('m-mir-20','u-res-mir-20','demo-condo-norte','u-mir-5C','residente'),
-  ('m-mir-21','u-res-mir-21','demo-condo-norte','u-mir-6A','residente'),
-  ('m-mir-22','u-res-mir-22','demo-condo-norte','u-mir-6B','residente'),
-  ('m-mir-23','u-res-mir-23','demo-condo-norte','u-mir-6C','residente'),
-  ('m-mir-24','u-res-mir-24','demo-condo-norte','u-mir-7A','residente'),
-  ('m-mir-25','u-res-mir-25','demo-condo-norte','u-mir-7B','residente'),
-  ('m-mir-26','u-res-mir-26','demo-condo-norte','u-mir-8A','residente');
+  ('m-mir-5','u-res-mir-5','demo-condo-norte','u-mir-2B','residente'),
+  ('m-mir-6','u-res-mir-6','demo-condo-norte','u-mir-2E','residente'),
+  ('m-mir-7','u-res-mir-7','demo-condo-norte','u-mir-3A','residente'),
+  ('m-mir-8','u-res-mir-8','demo-condo-norte','u-mir-3C','residente'),
+  ('m-mir-9','u-res-mir-9','demo-condo-norte','u-mir-3E','residente'),
+  ('m-mir-10','u-res-mir-10','demo-condo-norte','u-mir-4B','residente'),
+  ('m-mir-11','u-res-mir-11','demo-condo-norte','u-mir-4D','residente'),
+  ('m-mir-12','u-res-mir-12','demo-condo-norte','u-mir-4E','residente'),
+  ('m-mir-13','u-res-mir-13','demo-condo-norte','u-mir-5B','residente'),
+  ('m-mir-14','u-res-mir-14','demo-condo-norte','u-mir-5C','residente'),
+  ('m-mir-15','u-res-mir-15','demo-condo-norte','u-mir-5D','residente'),
+  ('m-mir-16','u-res-mir-16','demo-condo-norte','u-mir-6A','residente'),
+  ('m-mir-17','u-res-mir-17','demo-condo-norte','u-mir-6C','residente'),
+  ('m-mir-18','u-res-mir-18','demo-condo-norte','u-mir-6D','residente'),
+  ('m-mir-19','u-res-mir-19','demo-condo-norte','u-mir-6E','residente'),
+  ('m-mir-20','u-res-mir-20','demo-condo-norte','u-mir-7B','residente'),
+  ('m-mir-21','u-res-mir-21','demo-condo-norte','u-mir-7D','residente'),
+  ('m-mir-22','u-res-mir-22','demo-condo-norte','u-mir-7E','residente'),
+  ('m-mir-23','u-res-mir-23','demo-condo-norte','u-mir-8A','residente'),
+  ('m-mir-24','u-res-mir-24','demo-condo-norte','u-mir-8B','residente'),
+  ('m-mir-25','u-res-mir-25','demo-condo-norte','u-mir-8C','residente'),
+  ('m-mir-26','u-res-mir-26','demo-condo-norte','u-mir-8D','residente');
